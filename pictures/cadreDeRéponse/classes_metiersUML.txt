@@ -1,0 +1,37 @@
+@startuml
+!theme reddress-lightblue
+
+skinparam classAttributeIconSize 0
+class Véhicule {
+  #vitesse
+  #position
+  #degreTrajectoire
+}
+
+
+together {
+class "Véhicule Leader"
+
+class Personne {
+  #nom
+  #prenom
+}
+
+class "Conducteur de Platoon" {
+  -identifiantConducteur
+}
+
+class Platoon
+
+Véhicule <|-- "Véhicule Leader"
+Personne <|-- "Conducteur de Platoon"
+
+Véhicule "0..1" --> "conducteur 1" Personne : "A pour conducteur"
+Platoon "0..1" --> "vehiculeLeader 1" "Véhicule Leader" : "A pour véhicule en tête"
+Platoon "0..1" --> "vehicules 0..*" Véhicule : "a pour véhicule(s) qui suivent"
+
+note "un Véhicule Leader a pour conducteur un conducteur \nde Platoon et non une Personne" as N1
+"Véhicule Leader" .. N1
+"Conducteur de Platoon" .. N1
+}
+@enduml
